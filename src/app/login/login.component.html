@@ -1,10 +1,5 @@
 <div class="col-md-12">
   <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -38,7 +33,8 @@
           name="password"
           [(ngModel)]="form.password"
           required
-          minlength="6"
+          minlength="8"
+          maxlength="32"
           #password="ngModel"
         />
         <div
@@ -48,9 +44,15 @@
         >
           <div *ngIf="password.errors.required">Password is required</div>
           <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
+            Password must be at least 8 characters
+          </div>
+          <div *ngIf="password.errors.maxlength">
+            Password must be less than 32 characters
           </div>
         </div>
+      </div>
+      <div>
+        <a href="/forgot-password" class="nav-link" routerLink="../forgot-password">Forgot Password?</a>
       </div>
       <div class="form-group">
         <button class="btn btn-primary btn-block">

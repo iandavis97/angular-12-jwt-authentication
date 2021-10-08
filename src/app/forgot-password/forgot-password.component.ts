@@ -3,50 +3,41 @@ import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
-export class LoginComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
   form: any = {
-    username: null,
-    password: null
+    email: null,
   };
-  isLoggedIn = false;
-  isLoginFailed = false;
+  isLinkSuccess=false;
+  isLinkFailed = false;
   errorMessage = '';
-  roles: string[] = [];
-
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-    }
   }
-
   onSubmit(): void {
-    const { username, password } = this.form;
+    const { email } = this.form;
 
-    this.authService.login(username, password).subscribe(
+    //temporary until api functions implemented, copied from login component
+    this.authService.forgotPassword(email).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveRefreshToken(data.refreshToken);
         this.tokenStorage.saveUser(data);
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+        this.isLinkFailed = false;
+        this.isLinkSuccess = true;
         this.reloadPage();
       },
       err => {
         this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
+        this.isLinkFailed = true;
       }
     );
   }
-
   reloadPage(): void {
     window.location.reload();
   }

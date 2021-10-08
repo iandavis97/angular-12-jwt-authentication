@@ -2,4 +2,7 @@
   <header class="jumbotron">
     <p>{{ content }}</p>
   </header>
+  <div routerLinkActive="active">
+  <a href="#/change-password" class="nav-link" *ngIf="isLoggedIn" routerLink="../change-password">Change Password</a>
+</div>
 </div>

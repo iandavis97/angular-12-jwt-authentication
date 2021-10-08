@@ -28,4 +28,24 @@ export class AuthService {
       password
     }, httpOptions);
   }
+
+  //temporary until api functions implemented
+  forgotPassword(email:string):Observable<any>{
+    return this.http.post(AUTH_API + 'forgot-password', {
+      email,
+    }, httpOptions);
+  }
+
+  //temporary until api functions implemented
+  changePassword(currentPassword:string,newPassword:string,confirmPassword:string):Observable<any>{
+    return this.http.post(AUTH_API + 'change-password', {
+      currentPassword,newPassword,confirmPassword,
+    }, httpOptions);
+  }
+  
+  refreshToken(token: string) {
+    return this.http.post(AUTH_API + 'refreshtoken', {
+      refreshToken: token
+    }, httpOptions);
+  }
 }
