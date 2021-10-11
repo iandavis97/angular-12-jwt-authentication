@@ -30,7 +30,6 @@ export class ForgotPasswordComponent implements OnInit {
 
         this.isLinkFailed = false;
         this.isLinkSuccess = true;
-        this.reloadPage();
       },
       err => {
         this.errorMessage = err.error.message;
